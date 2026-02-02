@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For Hargun</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(180deg, #1a0f1f, #2b1a2f, #3a1f2f);
+      color: #fff;
+      font-family: 'Georgia', serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .box {
+      max-width: 90%;
+      animation: fadeIn 2s ease;
+      text-shadow: 0 0 15px rgba(255, 182, 193, 0.5);
+    }
+
+    p {
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    h1, h2 {
+      font-weight: normal;
+      letter-spacing: 0.5px;
+    }
+
+    button {
+      margin-top: 22px;
+      padding: 12px 30px;
+      font-size: 15px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      background: rgba(255,255,255,0.15);
+      color: white;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .yes {
+      background: linear-gradient(135deg, #ff8fab, #ffc2d1);
+      color: #2b0a1f;
+    }
+
+    .no {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .heart {
+      position: absolute;
+      color: rgba(255, 182, 193, 0.7);
+      font-size: 14px;
+      animation: float 8s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(110vh); opacity: 0; }
+      to { transform: translateY(-10vh); opacity: 1; }
+    }
+
+    .petal {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: pink;
+      border-radius: 50%;
+      animation: fall 6s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      from { transform: translateY(-10vh) rotate(0deg); }
+      to { transform: translateY(110vh) rotate(360deg); }
+    }
+  </style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_5e6d8b6a2b.mp3" type="audio/mpeg">
+</audio>
+
+<div class="box" id="screen">
+  <p>Hey Hargun.</p>
+  <p>I made something for you.</p>
+  <button onclick="next()">continue</button>
+</div>
+
+<script>
+let step = 0;
+
+function next() {
+  document.getElementById("music").play();
+  const s = document.getElementById("screen");
+  step++;
+
+  if (step === 1) {
+    s.innerHTML = "<p>This is my first time doing something like this.</p><button onclick='next()'>...</button>";
+  }
+  else if (step === 2) {
+    s.innerHTML = "<p>And honestly… it still feels unreal.</p><button onclick='next()'>keep going</button>";
+  }
+  else if (step === 3) {
+    s.innerHTML = "<p>I feel really lucky that it’s you I get to ask.</p><button onclick='next()'>okay</button>";
+  }
+  else if (step === 4) {
+    s.innerHTML = "<p>You make everything feel warmer.</p><button onclick='next()'>♡</button>";
+  }
+  else {
+    s.innerHTML = `
+      <h2>Will you be my Valentine, Hargun? 🌷</h2>
+      <button class="yes" onclick="yes()">Yes</button>
+      <button class="no" onclick="no()">No</button>
+    `;
+  }
+}
+
+function yes() {
+  const s = document.getElementById("screen");
+  s.innerHTML = "<h1>This feels like a dream ✨</h1><p>Thank you for making my first Valentine this special.</p><button onclick='finalSurprise()'>one more thing</button>";
+  petals();
+}
+
+function finalSurprise() {
+  const s = document.getElementById("screen");
+  s.innerHTML = `
+    <p>One last thing, Hargun.</p>
+    <p>
+      I know this might just be a small moment for the world,
+      but it means a lot to me.
+    </p>
+    <p>
+      I’ve never done this before,
+      and somehow that makes it even more special
+      that it’s <em>you</em>.
+    </p>
+    <p>
+      No matter where this goes,
+      I’ll always remember the feeling of asking you like this.
+    </p>
+    <p>♡</p>
+  `;
+}
+
+function no() {
+  document.getElementById("screen").innerHTML =
+    "<p>That’s okay.</p><p>I’m still really grateful I got to ask you.</p>";
+}
+
+function hearts() {
+  setInterval(() => {
+    let h = document.createElement("div");
+    h.className = "heart";
+    h.style.left = Math.random() * 100 + "vw";
+    h.innerHTML = "♡";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 8000);
+  }, 500);
+}
+
+function petals() {
+  for (let i = 0; i < 80; i++) {
+    let p = document.createElement("div");
+    p.className = "petal";
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.animationDuration = (4 + Math.random() * 4) + "s";
+    p.style.background = ["#ffafcc", "#ffc8dd", "#ffd6e0"][Math.floor(Math.random()*3)];
+    document.body.appendChild(p);
+  }
+}
+
+hearts();
+</script>
+
+</body>
+</html>
